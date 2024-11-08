@@ -4,7 +4,7 @@ import time
 from pathlib import Path
 from fastapi import Body, Depends, APIRouter, Request, HTTPException, status, Query, UploadFile, File, Form
 from pydantic.types import Json
-
+from typing import Dict, Any
 from api.utils.logger import logger
 from api.utils.data_util import *
 from api.model.models import ResData, User
@@ -38,12 +38,14 @@ def demo_test_conn(param: dict = Body()):
     return ResData(data=result, msg="")
 
 
-@router.post("/test/view", response_model=ResData)
-def demo_test_view(param: dict = Body()):
-    print("demo.test.view.param:", param)
-    result = demo_service.demo_test_view(param)
-    return ResData(data=result, msg="")
-
+@router.post("/test/db", response_model=ResData)
+async def demo_test_db(param: Dict = Body(default={})):
+    try:
+        result = await demo_service.demo_test_db(param)
+        return ResData(data=result, msg="Success")
+    except Exception as e:
+        print(f"DB Test Error: {str(e)}")  # For debugging
+        return ResData(data=None, msg=str(e))
 
 @router.post("/pages/list", response_model=ResData)
 def demo_pages_list(param: dict = Body()):

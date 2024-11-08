@@ -21,7 +21,7 @@ class Settings(BaseSettings):
         env_file_encoding = "utf-8"
         database = {
             "MODE": "Settings",
-            "HOST": "192.168.1.131",
+            "HOST": "112.217.168.242",
             "PORT": "5432",
             "NAME": "test",
             "USER": "dev",
@@ -36,7 +36,7 @@ class DevSettings(Settings):
         env_file = "dev.env"
         database = {
             "MODE": "DevSettings",
-            "HOST": "192.168.1.131",
+            "HOST": "112.217.168.242",
             "PORT": "5432",
             "NAME": "test",
             "USER": "dev",
@@ -54,8 +54,8 @@ class ProdSettings(Settings):
             "HOST": "112.217.168.242",
             "PORT": "5432",
             "NAME": "test",
-            "USER": "maxted",
-            "PASSWORD": "maxted1234",
+            "USER": "dev",
+            "PASSWORD": "dev1234",
             "POOL-MIN": 5,
             "POOL-MAX": 100
         }  # fmt: skip

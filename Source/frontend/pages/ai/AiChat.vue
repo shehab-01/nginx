@@ -51,16 +51,21 @@ const page = {
     console.log(btnId);
     data.topBtnId = btnId;
   },
-  dbTest() {
-    useApi()
-      .request({
-        method: 'post',
-        url: '/api/demo/test/db',
-        data: {}
-      })
-      .then((result: any) => {
-        console.log(result);
-      });
+
+async dbTest() {
+  try {
+    const response = await useApi().request({
+      method: 'post',
+      url: '/api/demo/test/db',
+      data: {} // or { param: {} } if your FastAPI endpoint expects this structure
+    });
+    console.log('DB Test Result:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('DB Test Error:', error);
+    throw error;
   }
+}
+
 };
 </script>

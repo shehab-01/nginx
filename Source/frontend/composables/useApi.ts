@@ -10,11 +10,47 @@ const isDev = process.env.NODE_ENV === 'development';
 export const useApi = () => {
   // const config = useRuntimeConfig();
   // const baseURL = config.public.baseApiUrl as string;
+  
+  const baseURL = import.meta.env.VITE_API_URL;
+  console.log("API baseURL:", baseURL);
 
   const api = axios.create({
-    baseURL: env.VITE_API_URL,
-    timeout: 200000
+    baseURL,
+    timeout: 200000,
+    headers:{
+      'Content-Type': 'application/json',
+      'Accept':'application/json'
+    }
   });
+
+api.interceptors.request.use(
+    (config) => {
+      console.log('Request:', {
+        method: config.method,
+        url: config.url,
+        data: config.data,
+        headers: config.headers
+      });
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  // Add response interceptor for debugging
+  api.interceptors.response.use(
+    (response) => {
+      console.log('Response:', response.data);
+      return response;
+    },
+    (error) => {
+      console.error('API Error:', error.response?.data || error.message);
+      return Promise.reject(error);
+    }
+  );
+
+
 
   /**
    * Request Interceptor

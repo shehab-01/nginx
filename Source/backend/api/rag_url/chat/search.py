@@ -41,7 +41,7 @@ class EmbeddingModel:
 embedding_model = EmbeddingModel()
 
 
-qa_df = pd.read_excel("C:\\python\\nuxt-fastapi_\\\Source\\backend\\api\\rag_url\\chat\\basic_qa.xlsx")
+qa_df = pd.read_excel("/var/www/nginx_rag/Source/backend/api/rag_url/chat/basic_qa.xlsx")
 
 
 def search_milvus(query_text, top_k=20):

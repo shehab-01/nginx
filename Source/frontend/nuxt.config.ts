@@ -31,7 +31,12 @@ export default defineNuxtConfig({
     }
   },
   nitro: {
-    serveStatic: true
+     serveStatic: true,
+     routeRules: {
+      '/api/**': {
+        proxy: 'http://localhost:9090/api/**'
+      }
+    }
   },
   modules: [
     //
@@ -80,7 +85,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       basePath: process.env.NUXT_BASE_PATH,
-      apiServiceKey: process.env.NUXT_API_SERVICE_KEY
+      apiServiceKey: process.env.NUXT_API_SERVICE_KEY,
+      apiUrl: 'http://112.217.168.243:2280'
     }
   }
 });
